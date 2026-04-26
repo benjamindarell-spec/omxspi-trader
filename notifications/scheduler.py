@@ -25,9 +25,17 @@ def _job(capital: float, n_positions: int) -> None:
         logger.error(f"Weekly email failed: {result}")
 
 
+def _price_check_job() -> None:
+    from notifications.price_alert import check_and_alert
+    triggered = check_and_alert()
+    if triggered:
+        for a in triggered:
+            logger.info(f"Price alert sent: {a['ticker']} {a['type']} @ {a['current']}")
+
+
 def start_scheduler(capital: float = 10_000, n_positions: int = 5) -> None:
     """
-    Schedule the Monday 08:00 job and spin up a daemon thread.
+    Schedule the Monday 08:00 weekly email and 15-minute price alert checks.
     Safe to call multiple times — only starts once per process.
     """
     global _started
@@ -36,6 +44,7 @@ def start_scheduler(capital: float = 10_000, n_positions: int = 5) -> None:
     _started = True
 
     schedule.every().monday.at("08:00").do(_job, capital=capital, n_positions=n_positions)
+    schedule.every(15).minutes.do(_price_check_job)
 
     def _loop():
         while True:
@@ -44,7 +53,7 @@ def start_scheduler(capital: float = 10_000, n_positions: int = 5) -> None:
 
     t = threading.Thread(target=_loop, daemon=True, name="email-scheduler")
     t.start()
-    logger.info("Email scheduler started — fires every Monday at 08:00.")
+    logger.info("Scheduler started — weekly email Mondays 08:00, price alerts every 15 min.")
 
 
 def last_email_status() -> dict:
