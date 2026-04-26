@@ -214,7 +214,6 @@ with tab_scan:
         fig.update_layout(
             paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(255,255,255,0.03)",
             font=dict(family="Inter, sans-serif", size=11),
-            ,
             xaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
             yaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
         )
@@ -320,7 +319,6 @@ with tab_portfolio:
             fig_pie.update_layout(
                 paper_bgcolor="rgba(0,0,0,0)",
                 font=dict(family="Inter, sans-serif", size=11),
-                ,
                 legend=dict(bgcolor="rgba(0,0,0,0)", bordercolor="rgba(128,128,128,0.2)"),
             )
             st.plotly_chart(fig_pie, use_container_width=True)
@@ -364,7 +362,6 @@ with tab_tracker:
     _CHART_LAYOUT = dict(
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(255,255,255,0.03)",
         font=dict(family="Inter, sans-serif", size=11),
-        ,
         xaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
         yaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
         legend=dict(bgcolor="rgba(0,0,0,0)", bordercolor="rgba(128,128,128,0.2)"),
