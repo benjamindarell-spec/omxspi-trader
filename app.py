@@ -33,135 +33,85 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Terminal theme CSS ────────────────────────────────────────────────────────
+# ── Professional dark theme CSS ───────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Global font + background */
 html, body, [class*="css"], .stApp {
-    font-family: 'JetBrains Mono', 'Courier New', monospace !important;
-    background-color: #0a0c0a !important;
-    color: #c8ffc8 !important;
+    font-family: 'Inter', sans-serif !important;
+    background-color: #111318 !important;
+    color: #e2e8f0 !important;
 }
 
-/* Sidebar */
 [data-testid="stSidebar"] {
-    background-color: #0d110d !important;
-    border-right: 1px solid #1a3a1a !important;
+    background-color: #0d0f14 !important;
+    border-right: 1px solid #1e2330 !important;
 }
-[data-testid="stSidebar"] * { color: #8fbc8f !important; }
-[data-testid="stSidebar"] input { background: #0a0c0a !important; color: #c8ffc8 !important; border: 1px solid #1a3a1a !important; }
+[data-testid="stSidebar"] * { color: #94a3b8 !important; }
+[data-testid="stSidebar"] .stMarkdown p { font-size: 0.8rem !important; }
 
-/* Main content area */
 .main .block-container { padding-top: 1.5rem; max-width: 1400px; }
 
-/* Headers */
-h1 { color: #00ff41 !important; letter-spacing: 0.05em; font-size: 1.6rem !important; }
-h2 { color: #00cc33 !important; border-bottom: 1px solid #1a3a1a; padding-bottom: 6px; font-size: 1.2rem !important; }
-h3 { color: #00aa28 !important; font-size: 1rem !important; }
+h1 { color: #f1f5f9 !important; font-weight: 600 !important; font-size: 1.5rem !important; letter-spacing: -0.02em; }
+h2 { color: #cbd5e1 !important; font-weight: 500 !important; font-size: 1rem !important; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #1e2330; padding-bottom: 8px; margin-top: 1.5rem !important; }
+h3 { color: #94a3b8 !important; font-size: 0.85rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* Tabs */
 [data-testid="stTabs"] button {
-    font-family: 'JetBrains Mono', monospace !important;
-    color: #4a7a4a !important;
-    background: transparent !important;
-    border-bottom: 2px solid transparent !important;
-    font-size: 0.78rem !important;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-family: 'Inter', sans-serif !important;
+    color: #64748b !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.03em;
 }
 [data-testid="stTabs"] button[aria-selected="true"] {
-    color: #00ff41 !important;
-    border-bottom: 2px solid #00ff41 !important;
+    color: #e2e8f0 !important;
+    border-bottom-color: #3b82f6 !important;
 }
 
-/* Buttons */
 .stButton > button {
-    background-color: #0d1f0d !important;
-    color: #00ff41 !important;
-    border: 1px solid #00ff41 !important;
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.78rem !important;
-    letter-spacing: 0.05em;
-    border-radius: 2px !important;
+    background-color: #1e2330 !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #2d3748 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
     transition: all 0.15s;
 }
-.stButton > button:hover {
-    background-color: #00ff41 !important;
-    color: #0a0c0a !important;
-}
+.stButton > button:hover { background-color: #2d3748 !important; border-color: #4a5568 !important; }
+.stButton > button[kind="primary"] { background-color: #1d4ed8 !important; border-color: #1d4ed8 !important; color: #fff !important; }
+.stButton > button[kind="primary"]:hover { background-color: #2563eb !important; }
 
-/* Primary button */
-.stButton > button[kind="primary"] {
-    border: 1px solid #00ff41 !important;
-    background: #0d1f0d !important;
-}
-
-/* Metrics */
 [data-testid="stMetric"] {
-    background: #0d110d !important;
-    border: 1px solid #1a3a1a !important;
-    padding: 12px 16px !important;
-    border-radius: 2px !important;
+    background: #161a24 !important;
+    border: 1px solid #1e2330 !important;
+    padding: 14px 18px !important;
+    border-radius: 8px !important;
 }
-[data-testid="stMetricLabel"] { color: #4a7a4a !important; font-size: 0.7rem !important; text-transform: uppercase; letter-spacing: 0.1em; }
-[data-testid="stMetricValue"] { color: #00ff41 !important; font-size: 1.4rem !important; }
-[data-testid="stMetricDelta"] svg { display: none; }
+[data-testid="stMetricLabel"] { color: #64748b !important; font-size: 0.7rem !important; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500 !important; }
+[data-testid="stMetricValue"] { color: #f1f5f9 !important; font-size: 1.4rem !important; font-weight: 600 !important; }
 
-/* Dataframe */
-[data-testid="stDataFrame"] { border: 1px solid #1a3a1a !important; }
-.dvn-scroller { background: #0a0c0a !important; }
+[data-testid="stExpander"] { border: 1px solid #1e2330 !important; background: #161a24 !important; border-radius: 8px !important; }
+[data-testid="stExpander"] summary { color: #94a3b8 !important; font-size: 0.82rem !important; }
 
-/* Expander */
-[data-testid="stExpander"] {
-    border: 1px solid #1a3a1a !important;
-    background: #0d110d !important;
-    border-radius: 2px !important;
-}
-[data-testid="stExpander"] summary { color: #00cc33 !important; }
+hr { border-color: #1e2330 !important; }
+.stCaption, small { color: #64748b !important; font-size: 0.72rem !important; }
 
-/* Alerts */
-[data-testid="stAlert"] { border-radius: 2px !important; font-size: 0.8rem !important; }
-.stSuccess { background: #0a1f0a !important; border-left: 3px solid #00ff41 !important; color: #c8ffc8 !important; }
-.stError { background: #1f0a0a !important; border-left: 3px solid #ff3333 !important; color: #ffc8c8 !important; }
-.stInfo { background: #0a0f1f !important; border-left: 3px solid #3399ff !important; color: #c8d8ff !important; }
-.stWarning { background: #1a1400 !important; border-left: 3px solid #ffcc00 !important; color: #fff0a0 !important; }
+[data-testid="stProgressBar"] > div { background: #3b82f6 !important; }
+[data-testid="stProgressBar"] { background: #1e2330 !important; border-radius: 4px !important; }
 
-/* Spinner */
-[data-testid="stSpinner"] { color: #00ff41 !important; }
-
-/* Divider */
-hr { border-color: #1a3a1a !important; }
-
-/* Caption / small text */
-.stCaption, small, caption { color: #4a7a4a !important; font-size: 0.72rem !important; }
-
-/* Progress bar */
-[data-testid="stProgressBar"] > div { background: #00ff41 !important; }
-[data-testid="stProgressBar"] { background: #1a3a1a !important; }
-
-/* Number input / slider */
 input[type="number"], input[type="text"], input[type="password"] {
-    background: #0a0c0a !important;
-    color: #c8ffc8 !important;
-    border: 1px solid #1a3a1a !important;
-    font-family: 'JetBrains Mono', monospace !important;
+    background: #161a24 !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #2d3748 !important;
+    border-radius: 6px !important;
 }
-[data-testid="stSlider"] [data-baseweb="slider"] div { background: #00ff41 !important; }
 
-/* Toggle */
-[data-testid="stToggle"] { accent-color: #00ff41; }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #0a0c0a; }
-::-webkit-scrollbar-thumb { background: #1a3a1a; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #00ff41; }
-
-/* Blinking cursor effect on title */
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-.cursor::after { content: '▋'; animation: blink 1s step-end infinite; color: #00ff41; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #111318; }
+::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #4a5568; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -170,7 +120,7 @@ scheduler.start_scheduler()
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<p style="color:#00ff41;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;">// CONFIG</p>', unsafe_allow_html=True)
+    st.markdown("**Settings**")
     capital = st.number_input("Portfolio capital (SEK)", value=PORTFOLIO_CAPITAL, step=500, min_value=1000)
     n_positions = st.slider("Max simultaneous positions", 3, 8, MAX_POSITIONS)
     use_ai = st.toggle("AI analysis (Claude API)", value=True)
@@ -224,14 +174,11 @@ with st.sidebar:
     )
 
 # ── Header ───────────────────────────────────────────────────────────────────
+st.title("OMXSPI Trading Model")
 st.markdown(
-    '<h1 class="cursor">OMXSPI // TRADING TERMINAL</h1>',
-    unsafe_allow_html=True,
-)
-st.markdown(
-    f'<p style="color:#4a7a4a;font-size:0.75rem;letter-spacing:0.1em;">'
-    f'TARGET &nbsp;{capital:,.0f} SEK → {capital*2:,.0f} SEK &nbsp;|&nbsp; '
-    f'HORIZON 1–4 WEEKS &nbsp;|&nbsp; EXCHANGE NASDAQ STOCKHOLM &nbsp;|&nbsp; BROKER NORDNET'
+    f'<p style="color:#64748b;font-size:0.78rem;">'
+    f'Target &nbsp;<strong style="color:#e2e8f0">{capital:,.0f} SEK → {capital*2:,.0f} SEK</strong>'
+    f'&nbsp; · &nbsp;Nasdaq Stockholm&nbsp; · &nbsp;Nordnet&nbsp; · &nbsp;1–4 week swing trading'
     f'</p>',
     unsafe_allow_html=True,
 )
@@ -297,18 +244,18 @@ with tab_scan:
         # Score histogram
         fig = px.histogram(
             df, x="score", nbins=20,
-            color_discrete_sequence=["#00ff41"],
-            title="SIGNAL SCORE DISTRIBUTION",
-            labels={"score": "score (−5 to +5)"},
+            color_discrete_sequence=["#3b82f6"],
+            title="Signal Score Distribution",
+            labels={"score": "Signal score (−5 to +5)"},
         )
-        fig.add_vline(x=1.5, line_dash="dash", line_color="#ffcc00", annotation_text="BUY")
-        fig.add_vline(x=3.5, line_dash="dash", line_color="#00ff41", annotation_text="STRONG BUY")
+        fig.add_vline(x=1.5, line_dash="dash", line_color="#f59e0b", annotation_text="BUY")
+        fig.add_vline(x=3.5, line_dash="dash", line_color="#22c55e", annotation_text="Strong Buy")
         fig.update_layout(
-            paper_bgcolor="#0a0c0a", plot_bgcolor="#0d110d",
-            font=dict(family="JetBrains Mono, monospace", color="#8fbc8f", size=11),
-            title_font_color="#00ff41",
-            xaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
-            yaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
+            paper_bgcolor="#111318", plot_bgcolor="#161a24",
+            font=dict(family="Inter, sans-serif", color="#94a3b8", size=11),
+            title_font_color="#e2e8f0",
+            xaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
+            yaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -405,17 +352,15 @@ with tab_portfolio:
             sectors = [p["sector"] for p in portfolio]
             sector_sek = [p["actual_investment"] for p in portfolio]
             fig_pie = px.pie(
-                values=sector_sek,
-                names=sectors,
-                title="SECTOR ALLOCATION",
-                hole=0.5,
-                color_discrete_sequence=["#00ff41","#00cc33","#009922","#006611","#004400","#003300"],
+                values=sector_sek, names=sectors,
+                title="Sector Allocation", hole=0.5,
+                color_discrete_sequence=["#3b82f6","#6366f1","#8b5cf6","#06b6d4","#0ea5e9","#22c55e"],
             )
             fig_pie.update_layout(
-                paper_bgcolor="#0a0c0a",
-                font=dict(family="JetBrains Mono, monospace", color="#8fbc8f", size=11),
-                title_font_color="#00ff41",
-                legend=dict(bgcolor="#0d110d", bordercolor="#1a3a1a"),
+                paper_bgcolor="#111318",
+                font=dict(family="Inter, sans-serif", color="#94a3b8", size=11),
+                title_font_color="#e2e8f0",
+                legend=dict(bgcolor="#161a24", bordercolor="#1e2330"),
             )
             st.plotly_chart(fig_pie, use_container_width=True)
 
@@ -454,6 +399,16 @@ with tab_tracker:
 
     st.divider()
 
+    # Shared chart layout for this tab
+    _CHART_LAYOUT = dict(
+        paper_bgcolor="#111318", plot_bgcolor="#161a24",
+        font=dict(family="Inter, sans-serif", color="#94a3b8", size=11),
+        title_font_color="#e2e8f0",
+        xaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
+        yaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
+        legend=dict(bgcolor="#161a24", bordercolor="#1e2330"),
+    )
+
     # Equity curve
     curve = tracker.get_equity_curve()
     if curve:
@@ -461,23 +416,92 @@ with tab_tracker:
         fig_eq = go.Figure()
         fig_eq.add_trace(go.Scatter(
             x=eq_df["recorded_at"], y=eq_df["equity_sek"],
-            mode="lines+markers", name="EQUITY",
-            line=dict(color="#00ff41", width=2),
-            marker=dict(color="#00ff41", size=5),
+            mode="lines+markers", name="Equity",
+            line=dict(color="#3b82f6", width=2),
+            marker=dict(color="#3b82f6", size=5),
         ))
-        fig_eq.add_hline(y=capital * 2, line_dash="dash", line_color="#ffcc00",
-                         annotation_text="TARGET 2×", annotation_font_color="#ffcc00")
-        fig_eq.add_hline(y=capital, line_dash="dash", line_color="#4a7a4a",
-                         annotation_text="START", annotation_font_color="#4a7a4a")
-        fig_eq.update_layout(
-            title="EQUITY CURVE", yaxis_title="SEK", xaxis_title="",
-            paper_bgcolor="#0a0c0a", plot_bgcolor="#0d110d",
-            font=dict(family="JetBrains Mono, monospace", color="#8fbc8f", size=11),
-            title_font_color="#00ff41",
-            xaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
-            yaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
-        )
+        fig_eq.add_hline(y=capital * 2, line_dash="dash", line_color="#f59e0b",
+                         annotation_text="Target 2×", annotation_font_color="#f59e0b")
+        fig_eq.add_hline(y=capital, line_dash="dash", line_color="#64748b",
+                         annotation_text="Start", annotation_font_color="#64748b")
+        fig_eq.update_layout(title="Equity Curve", yaxis_title="SEK", **_CHART_LAYOUT)
         st.plotly_chart(fig_eq, use_container_width=True)
+
+    # ── Forward projection ────────────────────────────────────────────────────
+    st.subheader("Portfolio Projection")
+    perf = tracker.performance_summary(capital)
+
+    # Use actual stats if we have closed trades, else use strategy defaults
+    if perf["closed_trades"] >= 3:
+        win_rate = perf["win_rate_pct"] / 100
+        avg_win = perf["avg_win_pct"] / 100
+        avg_loss = abs(perf["avg_loss_pct"]) / 100
+        note = f"Based on {perf['closed_trades']} closed trades"
+    else:
+        win_rate, avg_win, avg_loss = 0.65, 0.15, 0.07
+        note = "Based on strategy defaults (65% win rate, +15% avg win, −7% avg loss)"
+
+    trades_per_month = 4  # ~1 per week per position cycle
+    months = 6
+    weeks = months * 4
+
+    import numpy as np
+    from datetime import timedelta
+
+    today = pd.Timestamp.now()
+    dates = [today + timedelta(weeks=w) for w in range(weeks + 1)]
+
+    # Base case — expected value compounding
+    base, opt, pess = [summary["portfolio_value"]], [summary["portfolio_value"]], [summary["portfolio_value"]]
+    for _ in range(weeks):
+        ev = win_rate * avg_win - (1 - win_rate) * avg_loss
+        base.append(base[-1] * (1 + ev))
+        opt.append(opt[-1] * (1 + win_rate * avg_win * 1.1 - (1 - win_rate) * avg_loss * 0.8))
+        pess.append(pess[-1] * (1 + win_rate * avg_win * 0.8 - (1 - win_rate) * avg_loss * 1.2))
+
+    fig_proj = go.Figure()
+    fig_proj.add_trace(go.Scatter(
+        x=dates, y=opt, name="Optimistic", mode="lines",
+        line=dict(color="#22c55e", width=1, dash="dot"),
+    ))
+    fig_proj.add_trace(go.Scatter(
+        x=dates, y=base, name="Base case", mode="lines",
+        line=dict(color="#3b82f6", width=2.5),
+    ))
+    fig_proj.add_trace(go.Scatter(
+        x=dates, y=pess, name="Conservative", mode="lines",
+        line=dict(color="#f59e0b", width=1, dash="dot"),
+    ))
+    fig_proj.add_hline(y=capital * 2, line_dash="dash", line_color="#f59e0b",
+                       annotation_text="Target 20,000 SEK", annotation_font_color="#f59e0b")
+    fig_proj.add_hline(y=capital, line_dash="dash", line_color="#64748b",
+                       annotation_text="Starting capital", annotation_font_color="#64748b")
+
+    weeks_to_target = next(
+        (i for i, v in enumerate(base) if v >= capital * 2), None
+    )
+    if weeks_to_target:
+        target_date = today + timedelta(weeks=weeks_to_target)
+        fig_proj.add_vline(
+            x=target_date.timestamp() * 1000, line_dash="dash", line_color="#22c55e",
+            annotation_text=f"~{weeks_to_target}w", annotation_font_color="#22c55e",
+        )
+
+    fig_proj.update_layout(
+        title=f"6-Month Projection  ·  {note}",
+        yaxis_title="Portfolio value (SEK)", xaxis_title="",
+        **_CHART_LAYOUT,
+    )
+    st.plotly_chart(fig_proj, use_container_width=True)
+
+    p1, p2, p3 = st.columns(3)
+    p1.metric("Base case (6m)", f"{base[-1]:,.0f} SEK", f"{(base[-1]-capital)/capital*100:+.0f}%")
+    p2.metric("Optimistic (6m)", f"{opt[-1]:,.0f} SEK", f"{(opt[-1]-capital)/capital*100:+.0f}%")
+    p3.metric("Conservative (6m)", f"{pess[-1]:,.0f} SEK", f"{(pess[-1]-capital)/capital*100:+.0f}%")
+    if weeks_to_target:
+        st.caption(f"Base case reaches target in approximately **{weeks_to_target} weeks** ({target_date.strftime('%d %b %Y')})")
+
+    st.divider()
 
     # Open positions
     st.subheader("Open positions")
