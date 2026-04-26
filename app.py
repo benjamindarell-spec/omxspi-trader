@@ -503,6 +503,40 @@ with tab_tracker:
 
     st.divider()
 
+    # ── Manual position entry ─────────────────────────────────────────────────
+    st.subheader("Add a position manually")
+    st.caption("Use this to log stocks you already own at your real purchase price.")
+
+    with st.form("manual_add"):
+        c1, c2, c3, c4, c5 = st.columns(5)
+        m_ticker   = c1.text_input("Ticker", placeholder="ERIC-B.ST")
+        m_price    = c2.number_input("Entry price (SEK)", min_value=0.01, value=100.0, step=0.01)
+        m_shares   = c3.number_input("Shares", min_value=1, value=10, step=1)
+        m_sl       = c4.number_input("Stop-loss (SEK)", min_value=0.01, value=round(100.0 * 0.93, 2), step=0.01)
+        m_tp       = c5.number_input("Take-profit (SEK)", min_value=0.01, value=round(100.0 * 1.15, 2), step=0.01)
+        m_notes    = st.text_input("Notes (optional)", placeholder="Bought on Nordnet 2024-04-22")
+        submitted  = st.form_submit_button("Add to tracker", use_container_width=True)
+
+        if submitted:
+            if not m_ticker.strip():
+                st.error("Enter a ticker symbol.")
+            else:
+                ticker_clean = m_ticker.strip().upper()
+                if not ticker_clean.endswith(".ST"):
+                    ticker_clean += ".ST"
+                tracker.add_position(
+                    ticker=ticker_clean,
+                    entry_price=m_price,
+                    shares=int(m_shares),
+                    position_sek=round(m_price * m_shares, 2),
+                    stop_loss=m_sl,
+                    take_profit=m_tp,
+                    notes=m_notes or f"Manual entry",
+                )
+                st.success(f"Added {ticker_clean} — {int(m_shares)} shares @ {m_price:.2f} SEK")
+
+    st.divider()
+
     # Open positions
     st.subheader("Open positions")
     open_positions = tracker.get_open_positions()
