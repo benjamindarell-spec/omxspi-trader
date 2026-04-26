@@ -27,18 +27,150 @@ for _key in ["ANTHROPIC_API_KEY", "EMAIL_SENDER", "EMAIL_PASSWORD", "EMAIL_RECIP
 
 # ── Page config ─────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="OMXSPI Trading Model",
+    page_title="OMXSPI // Trading Terminal",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# ── Terminal theme CSS ────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+/* Global font + background */
+html, body, [class*="css"], .stApp {
+    font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+    background-color: #0a0c0a !important;
+    color: #c8ffc8 !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #0d110d !important;
+    border-right: 1px solid #1a3a1a !important;
+}
+[data-testid="stSidebar"] * { color: #8fbc8f !important; }
+[data-testid="stSidebar"] input { background: #0a0c0a !important; color: #c8ffc8 !important; border: 1px solid #1a3a1a !important; }
+
+/* Main content area */
+.main .block-container { padding-top: 1.5rem; max-width: 1400px; }
+
+/* Headers */
+h1 { color: #00ff41 !important; letter-spacing: 0.05em; font-size: 1.6rem !important; }
+h2 { color: #00cc33 !important; border-bottom: 1px solid #1a3a1a; padding-bottom: 6px; font-size: 1.2rem !important; }
+h3 { color: #00aa28 !important; font-size: 1rem !important; }
+
+/* Tabs */
+[data-testid="stTabs"] button {
+    font-family: 'JetBrains Mono', monospace !important;
+    color: #4a7a4a !important;
+    background: transparent !important;
+    border-bottom: 2px solid transparent !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+[data-testid="stTabs"] button[aria-selected="true"] {
+    color: #00ff41 !important;
+    border-bottom: 2px solid #00ff41 !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #0d1f0d !important;
+    color: #00ff41 !important;
+    border: 1px solid #00ff41 !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.05em;
+    border-radius: 2px !important;
+    transition: all 0.15s;
+}
+.stButton > button:hover {
+    background-color: #00ff41 !important;
+    color: #0a0c0a !important;
+}
+
+/* Primary button */
+.stButton > button[kind="primary"] {
+    border: 1px solid #00ff41 !important;
+    background: #0d1f0d !important;
+}
+
+/* Metrics */
+[data-testid="stMetric"] {
+    background: #0d110d !important;
+    border: 1px solid #1a3a1a !important;
+    padding: 12px 16px !important;
+    border-radius: 2px !important;
+}
+[data-testid="stMetricLabel"] { color: #4a7a4a !important; font-size: 0.7rem !important; text-transform: uppercase; letter-spacing: 0.1em; }
+[data-testid="stMetricValue"] { color: #00ff41 !important; font-size: 1.4rem !important; }
+[data-testid="stMetricDelta"] svg { display: none; }
+
+/* Dataframe */
+[data-testid="stDataFrame"] { border: 1px solid #1a3a1a !important; }
+.dvn-scroller { background: #0a0c0a !important; }
+
+/* Expander */
+[data-testid="stExpander"] {
+    border: 1px solid #1a3a1a !important;
+    background: #0d110d !important;
+    border-radius: 2px !important;
+}
+[data-testid="stExpander"] summary { color: #00cc33 !important; }
+
+/* Alerts */
+[data-testid="stAlert"] { border-radius: 2px !important; font-size: 0.8rem !important; }
+.stSuccess { background: #0a1f0a !important; border-left: 3px solid #00ff41 !important; color: #c8ffc8 !important; }
+.stError { background: #1f0a0a !important; border-left: 3px solid #ff3333 !important; color: #ffc8c8 !important; }
+.stInfo { background: #0a0f1f !important; border-left: 3px solid #3399ff !important; color: #c8d8ff !important; }
+.stWarning { background: #1a1400 !important; border-left: 3px solid #ffcc00 !important; color: #fff0a0 !important; }
+
+/* Spinner */
+[data-testid="stSpinner"] { color: #00ff41 !important; }
+
+/* Divider */
+hr { border-color: #1a3a1a !important; }
+
+/* Caption / small text */
+.stCaption, small, caption { color: #4a7a4a !important; font-size: 0.72rem !important; }
+
+/* Progress bar */
+[data-testid="stProgressBar"] > div { background: #00ff41 !important; }
+[data-testid="stProgressBar"] { background: #1a3a1a !important; }
+
+/* Number input / slider */
+input[type="number"], input[type="text"], input[type="password"] {
+    background: #0a0c0a !important;
+    color: #c8ffc8 !important;
+    border: 1px solid #1a3a1a !important;
+    font-family: 'JetBrains Mono', monospace !important;
+}
+[data-testid="stSlider"] [data-baseweb="slider"] div { background: #00ff41 !important; }
+
+/* Toggle */
+[data-testid="stToggle"] { accent-color: #00ff41; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0a0c0a; }
+::-webkit-scrollbar-thumb { background: #1a3a1a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00ff41; }
+
+/* Blinking cursor effect on title */
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor::after { content: '▋'; animation: blink 1s step-end infinite; color: #00ff41; }
+</style>
+""", unsafe_allow_html=True)
 
 # ── Start background email scheduler ─────────────────────────────────────────
 scheduler.start_scheduler()
 
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.title("⚙️ Settings")
+    st.markdown('<p style="color:#00ff41;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;">// CONFIG</p>', unsafe_allow_html=True)
     capital = st.number_input("Portfolio capital (SEK)", value=PORTFOLIO_CAPITAL, step=500, min_value=1000)
     n_positions = st.slider("Max simultaneous positions", 3, 8, MAX_POSITIONS)
     use_ai = st.toggle("AI analysis (Claude API)", value=True)
@@ -92,10 +224,16 @@ with st.sidebar:
     )
 
 # ── Header ───────────────────────────────────────────────────────────────────
-st.title("📈 OMXSPI Swing Trading Model")
-st.caption(
-    f"Target: **{capital:,.0f} SEK → {capital*2:,.0f} SEK** in 6 months  ·  "
-    "Nordnet  ·  1–4 week horizon"
+st.markdown(
+    '<h1 class="cursor">OMXSPI // TRADING TERMINAL</h1>',
+    unsafe_allow_html=True,
+)
+st.markdown(
+    f'<p style="color:#4a7a4a;font-size:0.75rem;letter-spacing:0.1em;">'
+    f'TARGET &nbsp;{capital:,.0f} SEK → {capital*2:,.0f} SEK &nbsp;|&nbsp; '
+    f'HORIZON 1–4 WEEKS &nbsp;|&nbsp; EXCHANGE NASDAQ STOCKHOLM &nbsp;|&nbsp; BROKER NORDNET'
+    f'</p>',
+    unsafe_allow_html=True,
 )
 
 # ── Tabs ─────────────────────────────────────────────────────────────────────
@@ -159,12 +297,19 @@ with tab_scan:
         # Score histogram
         fig = px.histogram(
             df, x="score", nbins=20,
-            color_discrete_sequence=["#2ecc71"],
-            title="Distribution of signal scores",
-            labels={"score": "Signal score (−5 to +5)"},
+            color_discrete_sequence=["#00ff41"],
+            title="SIGNAL SCORE DISTRIBUTION",
+            labels={"score": "score (−5 to +5)"},
         )
-        fig.add_vline(x=1.5, line_dash="dash", line_color="orange", annotation_text="BUY threshold")
-        fig.add_vline(x=3.5, line_dash="dash", line_color="green", annotation_text="STRONG BUY")
+        fig.add_vline(x=1.5, line_dash="dash", line_color="#ffcc00", annotation_text="BUY")
+        fig.add_vline(x=3.5, line_dash="dash", line_color="#00ff41", annotation_text="STRONG BUY")
+        fig.update_layout(
+            paper_bgcolor="#0a0c0a", plot_bgcolor="#0d110d",
+            font=dict(family="JetBrains Mono, monospace", color="#8fbc8f", size=11),
+            title_font_color="#00ff41",
+            xaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
+            yaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -262,8 +407,15 @@ with tab_portfolio:
             fig_pie = px.pie(
                 values=sector_sek,
                 names=sectors,
-                title="Portfolio sector allocation",
-                hole=0.4,
+                title="SECTOR ALLOCATION",
+                hole=0.5,
+                color_discrete_sequence=["#00ff41","#00cc33","#009922","#006611","#004400","#003300"],
+            )
+            fig_pie.update_layout(
+                paper_bgcolor="#0a0c0a",
+                font=dict(family="JetBrains Mono, monospace", color="#8fbc8f", size=11),
+                title_font_color="#00ff41",
+                legend=dict(bgcolor="#0d110d", bordercolor="#1a3a1a"),
             )
             st.plotly_chart(fig_pie, use_container_width=True)
 
@@ -309,14 +461,22 @@ with tab_tracker:
         fig_eq = go.Figure()
         fig_eq.add_trace(go.Scatter(
             x=eq_df["recorded_at"], y=eq_df["equity_sek"],
-            mode="lines+markers", name="Equity",
-            line=dict(color="#2ecc71", width=2),
+            mode="lines+markers", name="EQUITY",
+            line=dict(color="#00ff41", width=2),
+            marker=dict(color="#00ff41", size=5),
         ))
-        fig_eq.add_hline(y=capital * 2, line_dash="dash", line_color="gold",
-                         annotation_text="Target (2×)")
-        fig_eq.add_hline(y=capital, line_dash="dash", line_color="grey",
-                         annotation_text="Starting capital")
-        fig_eq.update_layout(title="Equity curve", yaxis_title="SEK", xaxis_title="Date")
+        fig_eq.add_hline(y=capital * 2, line_dash="dash", line_color="#ffcc00",
+                         annotation_text="TARGET 2×", annotation_font_color="#ffcc00")
+        fig_eq.add_hline(y=capital, line_dash="dash", line_color="#4a7a4a",
+                         annotation_text="START", annotation_font_color="#4a7a4a")
+        fig_eq.update_layout(
+            title="EQUITY CURVE", yaxis_title="SEK", xaxis_title="",
+            paper_bgcolor="#0a0c0a", plot_bgcolor="#0d110d",
+            font=dict(family="JetBrains Mono, monospace", color="#8fbc8f", size=11),
+            title_font_color="#00ff41",
+            xaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
+            yaxis=dict(gridcolor="#1a3a1a", zerolinecolor="#1a3a1a"),
+        )
         st.plotly_chart(fig_eq, use_container_width=True)
 
     # Open positions
