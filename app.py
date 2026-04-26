@@ -33,38 +33,40 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Polish CSS (theme-agnostic) ───────────────────────────────────────────────
+# ── Responsive CSS ────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
 
+/* ── Desktop ── */
 .main .block-container { padding-top: 1.5rem; max-width: 1400px; }
 
 h1 { font-weight: 700 !important; font-size: 1.6rem !important; letter-spacing: -0.02em; }
 h2 { font-weight: 600 !important; font-size: 0.85rem !important;
      text-transform: uppercase; letter-spacing: 0.08em;
-     border-bottom: 1px solid rgba(255,255,255,0.08);
+     border-bottom: 1px solid rgba(128,128,128,0.2);
      padding-bottom: 8px; margin-top: 1.8rem !important; }
 h3 { font-weight: 500 !important; font-size: 0.8rem !important;
      text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6; }
 
-[data-testid="stTabs"] button { font-size: 0.82rem !important; font-weight: 500 !important; letter-spacing: 0.02em; }
+[data-testid="stTabs"] button {
+    font-size: 0.82rem !important; font-weight: 500 !important; letter-spacing: 0.02em;
+    padding: 8px 16px !important;
+}
 
 .stButton > button {
     font-family: 'Inter', sans-serif !important;
-    font-size: 0.82rem !important;
-    font-weight: 500 !important;
-    border-radius: 6px !important;
-    transition: opacity 0.15s;
+    font-size: 0.82rem !important; font-weight: 500 !important;
+    border-radius: 8px !important; transition: opacity 0.15s;
+    min-height: 40px !important;
 }
 .stButton > button:hover { opacity: 0.85; }
 
 [data-testid="stMetric"] {
-    border: 1px solid rgba(255,255,255,0.07) !important;
-    border-radius: 10px !important;
-    padding: 14px 18px !important;
+    border: 1px solid rgba(128,128,128,0.15) !important;
+    border-radius: 10px !important; padding: 14px 18px !important;
 }
 [data-testid="stMetricLabel"] {
     font-size: 0.68rem !important; text-transform: uppercase;
@@ -72,11 +74,83 @@ h3 { font-weight: 500 !important; font-size: 0.8rem !important;
 }
 [data-testid="stMetricValue"] { font-size: 1.4rem !important; font-weight: 700 !important; }
 
-[data-testid="stExpander"] { border-radius: 8px !important; border: 1px solid rgba(255,255,255,0.07) !important; }
+[data-testid="stExpander"] {
+    border-radius: 10px !important;
+    border: 1px solid rgba(128,128,128,0.15) !important;
+}
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+/* Make tables scroll horizontally instead of squishing */
+[data-testid="stDataFrame"] { overflow-x: auto !important; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.3); border-radius: 4px; }
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+    .main .block-container {
+        padding: 0.75rem 0.75rem 2rem !important;
+    }
+
+    h1 { font-size: 1.25rem !important; }
+    h2 { font-size: 0.78rem !important; margin-top: 1.2rem !important; }
+
+    /* Stack ALL Streamlit columns vertically */
+    [data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        min-width: 100% !important;
+    }
+
+    /* Tabs: make them scrollable so they don't wrap */
+    [data-testid="stTabs"] [role="tablist"] {
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+    }
+    [data-testid="stTabs"] button {
+        font-size: 0.72rem !important;
+        padding: 6px 12px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Bigger touch targets for buttons */
+    .stButton > button {
+        min-height: 48px !important;
+        font-size: 0.85rem !important;
+        width: 100% !important;
+    }
+
+    /* Metrics: 2-per-row grid on mobile */
+    [data-testid="stMetric"] {
+        padding: 10px 12px !important;
+        border-radius: 8px !important;
+    }
+    [data-testid="stMetricValue"] { font-size: 1.15rem !important; }
+    [data-testid="stMetricLabel"] { font-size: 0.62rem !important; }
+
+    /* Inputs: full width, large enough to tap */
+    input, select, textarea {
+        font-size: 16px !important; /* prevents iOS zoom on focus */
+        min-height: 44px !important;
+    }
+
+    /* Sidebar: collapse by default (Streamlit does this, but reinforce) */
+    [data-testid="stSidebar"] { min-width: 0 !important; }
+
+    /* Plotly charts: allow horizontal scroll */
+    .js-plotly-plot { overflow-x: auto !important; }
+
+    /* Expanders: more breathing room */
+    [data-testid="stExpander"] summary { font-size: 0.85rem !important; padding: 12px !important; }
+
+    /* Hide less important table columns handled by overflow scroll */
+    [data-testid="stDataFrame"] {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.75rem !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
