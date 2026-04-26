@@ -33,85 +33,50 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── Professional dark theme CSS ───────────────────────────────────────────────
+# ── Polish CSS (theme-agnostic) ───────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-html, body, [class*="css"], .stApp {
-    font-family: 'Inter', sans-serif !important;
-    background-color: #111318 !important;
-    color: #e2e8f0 !important;
-}
-
-[data-testid="stSidebar"] {
-    background-color: #0d0f14 !important;
-    border-right: 1px solid #1e2330 !important;
-}
-[data-testid="stSidebar"] * { color: #94a3b8 !important; }
-[data-testid="stSidebar"] .stMarkdown p { font-size: 0.8rem !important; }
+html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
 
 .main .block-container { padding-top: 1.5rem; max-width: 1400px; }
 
-h1 { color: #f1f5f9 !important; font-weight: 600 !important; font-size: 1.5rem !important; letter-spacing: -0.02em; }
-h2 { color: #cbd5e1 !important; font-weight: 500 !important; font-size: 1rem !important; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid #1e2330; padding-bottom: 8px; margin-top: 1.5rem !important; }
-h3 { color: #94a3b8 !important; font-size: 0.85rem !important; text-transform: uppercase; letter-spacing: 0.05em; }
+h1 { font-weight: 700 !important; font-size: 1.6rem !important; letter-spacing: -0.02em; }
+h2 { font-weight: 600 !important; font-size: 0.85rem !important;
+     text-transform: uppercase; letter-spacing: 0.08em;
+     border-bottom: 1px solid rgba(255,255,255,0.08);
+     padding-bottom: 8px; margin-top: 1.8rem !important; }
+h3 { font-weight: 500 !important; font-size: 0.8rem !important;
+     text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6; }
 
-[data-testid="stTabs"] button {
-    font-family: 'Inter', sans-serif !important;
-    color: #64748b !important;
-    font-size: 0.8rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.03em;
-}
-[data-testid="stTabs"] button[aria-selected="true"] {
-    color: #e2e8f0 !important;
-    border-bottom-color: #3b82f6 !important;
-}
+[data-testid="stTabs"] button { font-size: 0.82rem !important; font-weight: 500 !important; letter-spacing: 0.02em; }
 
 .stButton > button {
-    background-color: #1e2330 !important;
-    color: #e2e8f0 !important;
-    border: 1px solid #2d3748 !important;
     font-family: 'Inter', sans-serif !important;
-    font-size: 0.8rem !important;
+    font-size: 0.82rem !important;
     font-weight: 500 !important;
     border-radius: 6px !important;
-    transition: all 0.15s;
+    transition: opacity 0.15s;
 }
-.stButton > button:hover { background-color: #2d3748 !important; border-color: #4a5568 !important; }
-.stButton > button[kind="primary"] { background-color: #1d4ed8 !important; border-color: #1d4ed8 !important; color: #fff !important; }
-.stButton > button[kind="primary"]:hover { background-color: #2563eb !important; }
+.stButton > button:hover { opacity: 0.85; }
 
 [data-testid="stMetric"] {
-    background: #161a24 !important;
-    border: 1px solid #1e2330 !important;
+    border: 1px solid rgba(255,255,255,0.07) !important;
+    border-radius: 10px !important;
     padding: 14px 18px !important;
-    border-radius: 8px !important;
 }
-[data-testid="stMetricLabel"] { color: #64748b !important; font-size: 0.7rem !important; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500 !important; }
-[data-testid="stMetricValue"] { color: #f1f5f9 !important; font-size: 1.4rem !important; font-weight: 600 !important; }
-
-[data-testid="stExpander"] { border: 1px solid #1e2330 !important; background: #161a24 !important; border-radius: 8px !important; }
-[data-testid="stExpander"] summary { color: #94a3b8 !important; font-size: 0.82rem !important; }
-
-hr { border-color: #1e2330 !important; }
-.stCaption, small { color: #64748b !important; font-size: 0.72rem !important; }
-
-[data-testid="stProgressBar"] > div { background: #3b82f6 !important; }
-[data-testid="stProgressBar"] { background: #1e2330 !important; border-radius: 4px !important; }
-
-input[type="number"], input[type="text"], input[type="password"] {
-    background: #161a24 !important;
-    color: #e2e8f0 !important;
-    border: 1px solid #2d3748 !important;
-    border-radius: 6px !important;
+[data-testid="stMetricLabel"] {
+    font-size: 0.68rem !important; text-transform: uppercase;
+    letter-spacing: 0.08em; opacity: 0.5; font-weight: 500 !important;
 }
+[data-testid="stMetricValue"] { font-size: 1.4rem !important; font-weight: 700 !important; }
+
+[data-testid="stExpander"] { border-radius: 8px !important; border: 1px solid rgba(255,255,255,0.07) !important; }
 
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #111318; }
-::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #4a5568; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 </style>
 """, unsafe_allow_html=True)
 
@@ -175,12 +140,8 @@ with st.sidebar:
 
 # ── Header ───────────────────────────────────────────────────────────────────
 st.title("OMXSPI Trading Model")
-st.markdown(
-    f'<p style="color:#64748b;font-size:0.78rem;">'
-    f'Target &nbsp;<strong style="color:#e2e8f0">{capital:,.0f} SEK → {capital*2:,.0f} SEK</strong>'
-    f'&nbsp; · &nbsp;Nasdaq Stockholm&nbsp; · &nbsp;Nordnet&nbsp; · &nbsp;1–4 week swing trading'
-    f'</p>',
-    unsafe_allow_html=True,
+st.caption(
+    f"Target  {capital:,.0f} SEK → {capital*2:,.0f} SEK  ·  Nasdaq Stockholm  ·  Nordnet  ·  1–4 week swing trading"
 )
 
 # ── Tabs ─────────────────────────────────────────────────────────────────────
@@ -251,11 +212,11 @@ with tab_scan:
         fig.add_vline(x=1.5, line_dash="dash", line_color="#f59e0b", annotation_text="BUY")
         fig.add_vline(x=3.5, line_dash="dash", line_color="#22c55e", annotation_text="Strong Buy")
         fig.update_layout(
-            paper_bgcolor="#111318", plot_bgcolor="#161a24",
-            font=dict(family="Inter, sans-serif", color="#94a3b8", size=11),
-            title_font_color="#e2e8f0",
-            xaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
-            yaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
+            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(255,255,255,0.03)",
+            font=dict(family="Inter, sans-serif", size=11),
+            ,
+            xaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
+            yaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -357,10 +318,10 @@ with tab_portfolio:
                 color_discrete_sequence=["#3b82f6","#6366f1","#8b5cf6","#06b6d4","#0ea5e9","#22c55e"],
             )
             fig_pie.update_layout(
-                paper_bgcolor="#111318",
-                font=dict(family="Inter, sans-serif", color="#94a3b8", size=11),
-                title_font_color="#e2e8f0",
-                legend=dict(bgcolor="#161a24", bordercolor="#1e2330"),
+                paper_bgcolor="rgba(0,0,0,0)",
+                font=dict(family="Inter, sans-serif", size=11),
+                ,
+                legend=dict(bgcolor="rgba(0,0,0,0)", bordercolor="rgba(128,128,128,0.2)"),
             )
             st.plotly_chart(fig_pie, use_container_width=True)
 
@@ -401,12 +362,12 @@ with tab_tracker:
 
     # Shared chart layout for this tab
     _CHART_LAYOUT = dict(
-        paper_bgcolor="#111318", plot_bgcolor="#161a24",
-        font=dict(family="Inter, sans-serif", color="#94a3b8", size=11),
-        title_font_color="#e2e8f0",
-        xaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
-        yaxis=dict(gridcolor="#1e2330", zerolinecolor="#1e2330"),
-        legend=dict(bgcolor="#161a24", bordercolor="#1e2330"),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(255,255,255,0.03)",
+        font=dict(family="Inter, sans-serif", size=11),
+        ,
+        xaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
+        yaxis=dict(gridcolor="rgba(128,128,128,0.15)", zerolinecolor="rgba(128,128,128,0.15)"),
+        legend=dict(bgcolor="rgba(0,0,0,0)", bordercolor="rgba(128,128,128,0.2)"),
     )
 
     # Equity curve
